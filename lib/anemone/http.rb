@@ -136,6 +136,7 @@ module Anemone
         req = Net::HTTP::Get.new(full_path, opts)
         # HTTP Basic authentication
         req.basic_auth url.user, url.password if url.user
+        req.basic_auth @opts[:username], @opts[:password] if !url.user && @opts[:username]
         response = connection(url).request(req)
         finish = Time.now()
         response_time = ((finish - start) * 1000).round
